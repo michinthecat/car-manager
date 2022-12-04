@@ -33,15 +33,25 @@ public class ServiceCarImp implements ServiceCar, Validators {
     }
 
     @Override
+    public boolean updateCar(Long id, Car car) {
+
+            try {
+                validateCarInput(car);
+                car.setId(id);
+                carRepository.save(car);
+                return true;
+
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+
+            }
+    }
+
+    @Override
     public Car addCarWithSpecificId(Car car) {
         return null;
     }
 
-
-    @Override
-    public Car createCar(Car car) {
-        return carRepository.save(car);
-    }
 
     @Override
     public Car getCarById(Long id) {
