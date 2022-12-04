@@ -21,8 +21,7 @@ public class CarController {
     @PostMapping("/addCar")
     public ResponseEntity addCar(@RequestBody Car car) {
 
-        //return new ResponseEntity(serviceCar.addCar(car) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
-    return ResponseEntity.status(HttpStatus.CREATED).body(serviceCar.addCar(car));
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceCar.addCar(car));
     }
 
 

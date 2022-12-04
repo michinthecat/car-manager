@@ -3,13 +3,13 @@ package dev.carmanager.Car.service.implementation;
 import dev.carmanager.Car.model.Car;
 import dev.carmanager.Car.repository.CarRepository;
 import dev.carmanager.Car.service.ServiceCar;
+import dev.carmanager.Car.service.Validators;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
-public class ServiceCarImp implements ServiceCar {
+public class ServiceCarImp implements ServiceCar, Validators {
 
     private final CarRepository carRepository;
 
@@ -21,27 +21,13 @@ public class ServiceCarImp implements ServiceCar {
     @Override
     public boolean addCar(Car car) {
 
-        if (carRepository.existsById(car.getId())) {
-            throw new RuntimeException("Id Car Already Exists");
-        }
-        if (car.getBrand() == null || car.getBrand().isEmpty()) {
-            throw new RuntimeException("Brand Car is Empty or Null");
-        }
-        if (car.getModel() == null || car.getModel().isEmpty()) {
-            throw new RuntimeException("Model Car is Empty or Null");
-        }
-        if (car.getYear() == null || car.getYear() < 1900 || car.getYear() > 2025) {
-            throw new RuntimeException("Year Car is Empty or Null or Invalid");
-        }
-        if (car.getColor() == null || car.getColor().isEmpty()) {
-            throw new RuntimeException("Color Car is Empty or Null");
-        }
-
         try {
+            validateCarInput(car);
             carRepository.save(car);
             return true;
+
         } catch (Exception e) {
-            throw new RuntimeException("Car invalid");
+            throw new RuntimeException(e.getMessage());
 
         }
     }
@@ -60,7 +46,7 @@ public class ServiceCarImp implements ServiceCar {
     @Override
     public Car getCarById(Long id) {
 
-        carRepository.findById(id).orElseThrow(() -> new RuntimeException("No se encontro"));
+        carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car Not Found"));
         return carRepository.findById(id).get();
 
     }
@@ -68,6 +54,24 @@ public class ServiceCarImp implements ServiceCar {
     @Override
     public List<Car> getAllCars() {
         return carRepository.findAll();
+    }
+
+    @Override
+    public void validateCarInput(Car car) {
+
+
+        if (car.getBrand() == null || car.getBrand().isEmpty()) {
+            throw new RuntimeException("Brand Car is Empty or Null");
+        }
+        if (car.getModel() == null || car.getModel().isEmpty()) {
+            throw new RuntimeException("Model Car is Empty or Null");
+        }
+        if (car.getYear() == null || car.getYear() < 1950 || car.getYear() > 2025) {
+            throw new RuntimeException("Year Car is Empty or Null or Invalid");
+        }
+        if (car.getColor() == null || car.getColor().isEmpty()) {
+            throw new RuntimeException("Color Car is Empty or Null");
+        }
     }
 }
 

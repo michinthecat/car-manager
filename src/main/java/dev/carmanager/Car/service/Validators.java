@@ -4,7 +4,7 @@ import dev.carmanager.Car.model.Car;
 
 public interface Validators {
 
-    boolean validateCar(Car car);
+    void validateCarInput(Car car);
 
 
 }

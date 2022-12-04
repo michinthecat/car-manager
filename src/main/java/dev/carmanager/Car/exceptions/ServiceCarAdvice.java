@@ -11,7 +11,7 @@ public class ServiceCarAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorDTO> handleRuntimeException(RuntimeException e){
 
-            return ResponseEntity.badRequest().body(ErrorDTO.builder().message(e.getMessage()).codeError("400").build());
+            return ResponseEntity.badRequest().body(ErrorDTO.builder().message(e.getMessage()).codeError("0").build());
 
     }
 
