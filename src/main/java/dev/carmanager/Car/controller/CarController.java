@@ -1,7 +1,7 @@
-package dev.carmanager.apirest.controller;
+package dev.carmanager.Car.controller;
 
-import dev.carmanager.apirest.model.Car;
-import dev.carmanager.apirest.service.ServiceCar;
+import dev.carmanager.Car.model.Car;
+import dev.carmanager.Car.service.ServiceCar;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +19,12 @@ public class CarController {
 
 
     @PostMapping("/addCar")
-    public boolean addCar(@RequestBody Car car) {
+    public ResponseEntity addCar(@RequestBody Car car) {
 
-        return serviceCar.addCar(car);
-
+        //return new ResponseEntity(serviceCar.addCar(car) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
+    return ResponseEntity.status(HttpStatus.CREATED).body(serviceCar.addCar(car));
     }
+
 
     @PostMapping("/addCarEntity")
     public boolean addCarEntity(@RequestBody Car car) {
@@ -53,9 +54,6 @@ public class CarController {
         return new ResponseEntity(serviceCar.getAllCars(), HttpStatus.OK);
 
     }
-
-
-
 
 
 }

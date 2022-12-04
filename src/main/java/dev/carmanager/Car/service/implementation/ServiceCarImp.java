@@ -1,8 +1,8 @@
-package dev.carmanager.apirest.service.implementation;
+package dev.carmanager.Car.service.implementation;
 
-import dev.carmanager.apirest.model.Car;
-import dev.carmanager.apirest.repository.CarRepository;
-import dev.carmanager.apirest.service.ServiceCar;
+import dev.carmanager.Car.model.Car;
+import dev.carmanager.Car.repository.CarRepository;
+import dev.carmanager.Car.service.ServiceCar;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +21,34 @@ public class ServiceCarImp implements ServiceCar {
     @Override
     public boolean addCar(Car car) {
 
+        if (carRepository.existsById(car.getId())) {
+            throw new RuntimeException("Id Car Already Exists");
+        }
+        if (car.getBrand() == null || car.getBrand().isEmpty()) {
+            throw new RuntimeException("Brand Car is Empty or Null");
+        }
+        if (car.getModel() == null || car.getModel().isEmpty()) {
+            throw new RuntimeException("Model Car is Empty or Null");
+        }
+        if (car.getYear() == null || car.getYear() < 1900 || car.getYear() > 2025) {
+            throw new RuntimeException("Year Car is Empty or Null or Invalid");
+        }
+        if (car.getColor() == null || car.getColor().isEmpty()) {
+            throw new RuntimeException("Color Car is Empty or Null");
+        }
+
         try {
             carRepository.save(car);
             return true;
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException("Car invalid");
+
         }
+    }
 
-
+    @Override
+    public Car addCarWithSpecificId(Car car) {
+        return null;
     }
 
 

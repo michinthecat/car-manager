@@ -1,2 +1,14 @@
-package dev.carmanager.Car.model;public class ErrorDTO {
+package dev.carmanager.Car.model;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class ErrorDTO {
+
+    private String message;
+    private String codeError;
+
+
 }

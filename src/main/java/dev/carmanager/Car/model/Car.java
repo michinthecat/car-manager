@@ -1,6 +1,5 @@
-package dev.carmanager.apirest.model;
+package dev.carmanager.Car.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,10 +29,7 @@ public class Car implements Serializable {
     private String color;
 
     @Column(nullable = false)
-    private String year;
-
-
-
+    private Long year;
 
 
 }
