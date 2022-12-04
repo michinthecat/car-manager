@@ -24,33 +24,24 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceCar.addCar(car));
     }
 
-
-    @PostMapping("/addCarEntity")
-    public boolean addCarEntity(@RequestBody Car car) {
-
-        return serviceCar.addCar(car);
-
-    }
-
-    @PostMapping("/createCar")
-    public ResponseEntity createCar(@RequestBody Car car) {
-
-        return new ResponseEntity(serviceCar.createCar(car), HttpStatus.CREATED);
-
-    }
-
-
-    @GetMapping("/getCarById/{id}")
+    @GetMapping("/Car/{id}")
     public ResponseEntity getCarById(@PathVariable("id") Long id) {
 
         return new ResponseEntity(serviceCar.getCarById(id), HttpStatus.OK);
 
     }
 
-    @GetMapping("/getAllCars")
+    @GetMapping("/AllCars")
     public ResponseEntity getAllCars() {
 
         return new ResponseEntity(serviceCar.getAllCars(), HttpStatus.OK);
+
+    }
+
+    @PutMapping("/updateCar/{id}")
+    public ResponseEntity updateCar(@PathVariable("id") Long id, @RequestBody Car car) {
+
+        return new ResponseEntity(serviceCar.updateCar(id, car), HttpStatus.OK);
 
     }
 

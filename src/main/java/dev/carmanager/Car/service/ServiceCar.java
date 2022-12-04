@@ -8,9 +8,9 @@ public interface ServiceCar {
 
     boolean addCar(Car car);
 
-    Car addCarWithSpecificId(Car car);
+    boolean updateCar(Long id, Car car);
 
-    Car createCar(Car car);
+    Car addCarWithSpecificId(Car car);
 
     Car getCarById(Long id);
 
